@@ -14,13 +14,7 @@ defmodule NucleotideCount do
   """
   @spec count([char], char) :: non_neg_integer
   def count(strand, nucleotide) do
-    strand
-    |> Enum.reduce(0, fn(x, acc) ->
-        case nucleotide == x do
-          true -> acc + 1
-          false -> acc
-        end
-    end)
+    strand |> Enum.count(fn(x) -> x == nucleotide end)
   end
 
 

@@ -1,0 +1,4 @@
+*.un~
+*.swp
+*.beam
+_build/

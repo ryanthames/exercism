@@ -1,17 +1,11 @@
 defmodule Bob do
   def hey(input) do
+    input = String.trim(input)
     cond do
-      String.upcase(input) == input ->
-        case String.last(input) do
-          "?" -> "Sure."
-          _ -> "Whoa, chill out!"
-        end
-      true ->
-        case String.last(input) do
-          "?" -> "Sure."
-          "" -> "Fine. Be that way!"
-          _ -> "Whatever."
-        end
+      input == "" -> "Fine. Be that way!"
+      String.last(input) == "?" -> "Sure."
+      String.upcase(input) == input && String.downcase(input) != input -> "Whoa, chill out!"
+      true -> "Whatever."
     end
   end
 end

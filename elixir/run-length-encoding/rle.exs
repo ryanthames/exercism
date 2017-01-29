@@ -9,9 +9,6 @@ defmodule RunLengthEncoder do
     end
   end
 
-  def decode(string) do
-  end
-
   defp _encode([current|[]], last, current_count, encoded_string) do
     cond do
       current == last ->
@@ -28,5 +25,18 @@ defmodule RunLengthEncoder do
       true ->
         _encode(rest, current, 1, encoded_string <> "#{current_count}#{last}")
     end
+  end
+
+  def decode(string) do
+    Regex.scan(~r/([0-9]+[A-Z])/, string)
+    |> Enum.map(&flatten(&1))
+    |> List.to_string
+  end
+
+  defp flatten([e|_]) do
+    [count] = Regex.run(~r/[0-9]+/, e)
+    [letter] = Regex.run(~r/[A-Z]/, e)
+
+    1..String.to_integer(count) |> Enum.reduce("", fn(_, acc) -> acc <> letter end)
   end
 end

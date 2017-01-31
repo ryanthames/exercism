@@ -16,9 +16,10 @@ defmodule Sublist do
 
   defp is_sublist(a, b) do
     a_size = Enum.count(a)
+    [_|tail] = b
     cond do
       a == Enum.take(b, a_size) -> true
-      true -> is_sublist(a, Enum.drop(b, a_size))
+      true -> is_sublist(a, tail)
     end
   end
 end

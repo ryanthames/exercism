@@ -5,7 +5,7 @@ defmodule Sublist do
   """
   def compare(a, b) do
     cond do
-      a == b -> :equal
+      a === b -> :equal
       is_sublist(a, b) -> :sublist
       is_sublist(b, a) -> :superlist
       true -> :unequal
@@ -14,11 +14,12 @@ defmodule Sublist do
 
   defp is_sublist(_a, []), do: false
 
+  defp is_sublist(a, b) when length(a) > length(b), do: false
+
   defp is_sublist(a, b) do
-    a_size = Enum.count(a)
     [_|tail] = b
     cond do
-      a == Enum.take(b, a_size) -> true
+      a === Enum.take(b, length(a)) -> true
       true -> is_sublist(a, tail)
     end
   end

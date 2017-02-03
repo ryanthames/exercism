@@ -1,12 +1,14 @@
 defmodule Anagram do
+  import String, only: [downcase: 1]
+
   def match(base, candidates) do
     candidates
-    |> Enum.filter(&(String.downcase(&1) != String.downcase(base)))
+    |> Enum.filter(&(downcase(&1) != downcase(base)))
     |> Enum.filter(&anagram?(base, &1))
   end
 
   defp anagram?(base, candidate) do
-    sort(String.downcase(base)) === sort(String.downcase(candidate))
+    sort(downcase(base)) === sort(downcase(candidate))
   end
 
   defp sort(string) do

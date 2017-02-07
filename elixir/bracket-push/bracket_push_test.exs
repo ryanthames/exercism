@@ -13,17 +13,14 @@ defmodule BracketPushTest do
     assert BracketPush.check_brackets("")
   end
 
-  @tag :pending
   test "appropriate bracketing in a set of brackets" do
     assert BracketPush.check_brackets("{}")
   end
 
-  @tag :pending
   test "unclosed brackets" do
     refute BracketPush.check_brackets("{{")
   end
 
-  @tag :pending
   test "more than one pair of brackets" do
     assert BracketPush.check_brackets("{}[]")
   end

@@ -8,7 +8,6 @@ ExUnit.configure exclude: :pending, trace: true
 defmodule BracketPushTest do
   use ExUnit.Case
 
-  # @tag :pending
   test "empty string" do
     assert BracketPush.check_brackets("")
   end

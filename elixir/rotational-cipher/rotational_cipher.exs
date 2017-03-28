@@ -1,8 +1,5 @@
 # Incomplete...
 defmodule RotationalCipher do
-  @low_range 97..122
-  @cap_range 65..90
-
   @doc """
   Given a plaintext and amount to shift by, return a rotated string.
 
@@ -12,32 +9,24 @@ defmodule RotationalCipher do
   """
   @spec rotate(text :: String.t(), shift :: integer) :: String.t()
   def rotate(text, shift) do
-    low_first..low_last = @low_range
-    cap_first..cap_last = @cap_range
     text 
-    |> String.graphemes 
-    |> Enum.map(fn s -> 
-      <<bin_s, _>> = s <> <<0>>
-      cond do
-        bin_s >= low_first && bin_s <= low_last ->
-          shift_letter(bin_s, low_first, low_last, shift)
-        bin_s >= cap_first && bin_s <= cap_last ->
-          shift_letter(bin_s, cap_first, cap_last, shift)
-        true ->
-          bin_s
-      end
-    end)
+    |> String.to_charlist 
+    |> Enum.map(fn(c) -> shift_letter(c, shift) end)
+    |> String.Chars.to_string
   end
 
-  defp shift_letter(bin_letter, low, high, shift) do
-    shifted_bin_letter = bin_letter + shift
+  defp shift_letter(c, shift) do
     cond do
-      # TODO convert back to string?
-      shifted_bin_letter > high ->
-        low + (shifted_bin_letter - high - 1)
-      true ->
-        shifted_bin_letter
+      c in ?A..?Z -> cycle_char(?A..?Z, c - ?A + shift)
+      c in ?a..?z -> cycle_char(?a..?z, c - ?a + shift)
+      true -> c
     end
+  end
+
+  defp cycle_char(rng, num) do
+    rng
+    |> Stream.cycle
+    |> Enum.at(num)
   end
 end
 

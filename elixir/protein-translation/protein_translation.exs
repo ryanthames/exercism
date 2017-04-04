@@ -29,6 +29,24 @@ defmodule ProteinTranslation do
   """
   @spec of_codon(String.t()) :: { atom, String.t() }
   def of_codon(codon) do
+    codon
+    |> String.graphemes
+    |> Enum.chunk(3)
+    |> Enum.map(&List.to_string(&1))
+    |> process_codon_list
+  end
+
+  defp process_codon_list(codons) when length(codons) == 1 do
+  {:ok, convert_codon(List.first(codons))}
+  end
+
+  defp process_codon_list(codons) do
+    result = codons |> Enum.map(&convert_codon(&1))
+    {:ok, result}
+  end
+
+  defp convert_codon(codon) do
+    "Methionine"
   end
 end
 

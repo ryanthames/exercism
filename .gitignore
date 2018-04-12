@@ -1,4 +1,7 @@
+.nrepl-port
 *.un~
 *.swp
 *.beam
 _build/
+target/
+.lein-failures

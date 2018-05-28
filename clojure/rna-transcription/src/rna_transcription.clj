@@ -1,19 +1,14 @@
 (ns rna-transcription
   (:require [clojure.string :as str]))
 
-(def dna->rna {
-               "G" "C"
-               "C" "G"
-               "T" "A"
-               "A" "U"
-               })
-
-(defn validate-code
+(defn translate-code
   [s]
-  (let [r (get dna->rna s)]
-    (if (nil? r)
-      (throw (AssertionError.))
-      r)))
+  (case s
+    "G" "C"
+    "C" "G"
+    "T" "A"
+    "A" "U"
+    (throw (AssertionError.))))
 
 (defn to-rna [dna]
-  (str/join (map validate-code (str/split dna #""))))
+  (apply str (map translate-code (str/split dna #""))))

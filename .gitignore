@@ -6,3 +6,10 @@ _build/
 target/
 .lein-failures
 .idea/
+*.iml
+*.classpath
+.gradle/
+.settings/
+bin/
+build/
+.project
